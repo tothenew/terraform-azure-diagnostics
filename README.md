@@ -21,13 +21,6 @@ data "azurerm_resources" "resources" {
   ...
 }
 
-module "azure-region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
 resource "azurerm_storage_account" "logs" {
   ...
 }
@@ -54,7 +47,7 @@ module "diagnostic-settings" {
   source  = "claranet/diagnostic-settings/azurerm"
   version = "x.x.x"
 
-  resource_id = each.id
+  resource_id = each.value.id
 
   logs_destinations_ids = [
     azurerm_storage_account.logs.id,
@@ -70,7 +63,7 @@ module "diagnostic-settings" {
 |------|-------------|------|---------|:--------:|
 | eventhub\_name | Event Hub name if one of the destinations is an Event Hub. | `string` | `null` | no |
 | log\_categories | List of log categories. | `list(string)` | `null` | no |
-| logs\_destinations\_ids | n/a | `list(string)` | <pre>[<br>  "/subscriptions/197703a3-363b-446a-ab2d-c3b7542bb84d/resourceGroups/app-loccitane-xcms-dev-rg/providers/Microsoft.Storage/storageAccounts/filesxcmsloccdevst",<br>  "/subscriptions/197703a3-363b-446a-ab2d-c3b7542bb84d/resourcegroups/run-loccitane-xcms-dev-rg/providers/microsoft.operationalinsights/workspaces/logs-run-loccitane-xcms-euw-dev-log"<br>]</pre> | no |
+| logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. | `list(string)` | n/a | yes |
 | metric\_categories | List of metric categories. | `list(string)` | `null` | no |
 | name | The name of the diagnostic setting. | `string` | `"default"` | no |
 | resource\_id | The ID of the resource. | `string` | n/a | yes |
