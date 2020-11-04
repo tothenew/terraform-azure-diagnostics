@@ -2,6 +2,9 @@
 
 Breaking
   * AZ-160: Revamp module
+  
+Added
+  * AZ-363: Add log_analytics_destination_type option for DataFactory
 
 ## 1.0.0 (2019-05-10)
 

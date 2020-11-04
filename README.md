@@ -54,6 +54,8 @@ module "diagnostic-settings" {
     azurerm_log_analytics_workspace.example.id,
     azurerm_eventhub_authorization_rule.logs.id,
   ]
+  log_analytics_destination_type = "Dedicated"
+
 }
 ```
 
