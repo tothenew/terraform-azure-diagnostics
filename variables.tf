@@ -41,5 +41,5 @@ variable "eventhub_name" {
 variable "log_analytics_destination_type" {
   type        = string
   default     = "AzureDiagnostics"
-  description = "When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. This only includes Azure Data Factory"
+  description = "When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. Azure Data Factory is the only compatible resource so far."
 }
