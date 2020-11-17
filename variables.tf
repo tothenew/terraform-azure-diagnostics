@@ -6,47 +6,34 @@ variable "name" {
 
 variable "resource_id" {
   type        = string
-  description = "The ID of the resource."
+  description = "The ID of the resource on which activate the diagnostic settings."
 }
 
 variable "log_categories" {
-  type        = list
+  type        = list(string)
   default     = null
   description = "List of log categories."
 }
 
 variable "metric_categories" {
-  type        = list
+  type        = list(string)
   default     = null
   description = "List of metric categories."
 }
 
-variable "enabled" {
-  type        = bool
-  default     = true
-  description = "Either `true` to enable diagnostic settings or `false` to disable it."
-}
-
 variable "retention_days" {
   type        = number
-  default     = null
+  default     = 30
   description = "The number of days to keep diagnostic logs."
 }
 
-variable "storage_account_id" {
-  type        = string
-  default     = ""
-  description = "The ID of the storage account to send diagnostic logs to."
+variable "logs_destinations_ids" {
+  type        = list(string)
+  description = "List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set."
 }
 
-variable "log_analytics_workspace_id" {
+variable "eventhub_name" {
+  description = "Event Hub name if one of the destinations is an Event Hub."
   type        = string
-  default     = ""
-  description = "The ID of the Log Analytics workspace to send diagnostic logs to."
-}
-
-variable "eventhub_authorization_rule_id" {
-  type        = string
-  default     = ""
-  description = "The ID of the event hub authorization rule to send diagnostic logs to."
+  default     = null
 }
