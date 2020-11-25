@@ -27,4 +27,6 @@ locals {
   storage_id       = coalescelist([for r in var.logs_destinations_ids : r if contains(split("/", r), "Microsoft.Storage")], [null])[0]
   log_analytics_id = coalescelist([for r in var.logs_destinations_ids : r if contains(split("/", r), "microsoft.operationalinsights")], [null])[0]
   eventhub_id      = coalescelist([for r in var.logs_destinations_ids : r if contains(split("/", r), "Microsoft.EventHub")], [null])[0]
+
+  log_analytics_destination_type = local.log_analytics_id != null ? var.log_analytics_destination_type : null
 }
