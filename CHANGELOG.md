@@ -1,10 +1,10 @@
-# v3.0.0/v4.0.0
+# v3.0.0/v4.0.0 - 2020-11-27
 
 Breaking
   * AZ-160: Revamp module
   
 Added
-  * AZ-363: Add log_analytics_destination_type option (only for DataFactory so far)
+  * AZ-363: Add `log_analytics_destination_type` option (only for DataFactory so far)
 
 Fixed
   * AZ-383: Fix empty logs destinations
