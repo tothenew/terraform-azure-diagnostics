@@ -27,9 +27,9 @@ locals {
     }
   }
 
-  storage_id       = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", r), "Microsoft.Storage")], [null])[0]
-  log_analytics_id = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", r), "microsoft.operationalinsights") || contains(split("/", r), "Microsoft.OperationalInsights")], [null])[0]
-  eventhub_id      = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", r), "Microsoft.EventHub")], [null])[0]
+  storage_id       = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", lower(r)), "microsoft.storage")], [null])[0]
+  log_analytics_id = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", lower(r)), "microsoft.operationalinsights")], [null])[0]
+  eventhub_id      = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", lower(r)), "microsoft.eventHub")], [null])[0]
 
   log_analytics_destination_type = local.log_analytics_id != null ? var.log_analytics_destination_type : null
 }
