@@ -1,7 +1,7 @@
 # Unreleased
 
 Fixed
-  * AZ-391 Fix the possibility for an id to be either upper or lower case
+  * AZ-391: Fix the possibility for an id to be either upper or lower case
 
 # v3.0.0/v4.0.0 - 2020-11-27
 
