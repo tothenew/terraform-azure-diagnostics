@@ -32,12 +32,6 @@ variable "logs_destinations_ids" {
   description = "List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set."
 }
 
-variable "eventhub_name" {
-  description = "Event Hub name if one of the destinations is an Event Hub."
-  type        = string
-  default     = null
-}
-
 variable "log_analytics_destination_type" {
   type        = string
   default     = "AzureDiagnostics"

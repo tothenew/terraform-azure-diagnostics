@@ -5,12 +5,12 @@ locals {
   log_categories = (
     var.log_categories != null ?
     var.log_categories :
-    try(data.azurerm_monitor_diagnostic_categories.main.0.logs, [])
+    try(data.azurerm_monitor_diagnostic_categories.main[0].logs, [])
   )
   metric_categories = (
     var.metric_categories != null ?
     var.metric_categories :
-    try(data.azurerm_monitor_diagnostic_categories.main.0.metrics, [])
+    try(data.azurerm_monitor_diagnostic_categories.main[0].metrics, [])
   )
 
   logs = {
