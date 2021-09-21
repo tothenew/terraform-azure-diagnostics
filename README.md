@@ -6,7 +6,7 @@ This module is based on work from [Innovation Norway](https://github.com/Innovat
 This Terraform enables the Diagnostic Settings on a given Azure resource.
 
 <!-- BEGIN_TF_DOCS -->
-## Global versionning rule for Claranet Azure modules
+## Global versioning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
