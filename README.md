@@ -5,7 +5,8 @@ This module is based on work from [Innovation Norway](https://github.com/Innovat
 
 This Terraform enables the Diagnostic Settings on a given Azure resource.
 
-## Version compatibility
+<!-- BEGIN_TF_DOCS -->
+## Global versionning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
@@ -17,51 +18,71 @@ This Terraform enables the Diagnostic Settings on a given Azure resource.
 
 ## Usage
 
-You can use this module by including it this way:
+This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool
+which set some terraform variables in the environment needed by this module.
+More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
+
 ```hcl
-data "azurerm_resources" "resources" {
-  ...
+module "azure_region" {
+  source  = "claranet/regions/azurerm"
+  version = "x.x.x"
+
+  azure_region = var.azure_region
 }
 
-resource "azurerm_storage_account" "logs" {
-  ...
+module "rg" {
+  source  = "claranet/rg/azurerm"
+  version = "x.x.x"
+
+  location    = module.azure_region.location
+  client_name = var.client_name
+  environment = var.environment
+  stack       = var.stack
 }
 
-resource "azurerm_log_analytics_workspace" "logs" {
-  ...
+module "logs" {
+  source  = "claranet/run-common/azurerm//modules/logs"
+  version = "x.x.x"
+
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  resource_group_name = module.rg.resource_group_name
 }
 
-resource "azurerm_eventhub_namespace" "logs" {
-  ...
+module "lb" {
+  source  = "claranet/lb/azurerm"
+  version = "x.x.x"
+
+  client_name    = var.client_name
+  environment    = var.environment
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  stack          = var.stack
+
+  resource_group_name = module.rg.resource_group_name
+
+  allocate_public_ip = true
+  enable_nat         = true
 }
 
-resource "azurerm_eventhub" "logs" {
-  ...
-}
-
-resource "azurerm_eventhub_authorization_rule" "logs" {
-  ...
-}
-
-module "diagnostic-settings" {
-  for_each = data.azurerm_resources.resources
-
+module "diagnostic_settings" {
   source  = "claranet/diagnostic-settings/azurerm"
   version = "x.x.x"
 
-  resource_id = each.value.id
+  resource_id = module.lb.lb_id
 
   logs_destinations_ids = [
-    azurerm_storage_account.logs.id,
-    azurerm_log_analytics_workspace.example.id,
-    azurerm_eventhub_authorization_rule.logs.id,
+    module.logs.logs_storage_account_id,
+    module.logs.log_analytics_workspace_id
   ]
   log_analytics_destination_type = "Dedicated"
-
 }
+
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
@@ -99,4 +120,4 @@ No modules.
 <!-- END_TF_DOCS -->
 ## Related documentation
 
-Terraform documentation: [terraform.io/docs/providers/azurerm/r/monitor_diagnostic_setting.html](https://www.terraform.io/docs/providers/azurerm/r/monitor_diagnostic_setting.html)
+Azure Diagnostic settings documentation: [docs.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings)
