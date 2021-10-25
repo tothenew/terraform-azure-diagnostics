@@ -1,4 +1,4 @@
-# Unreleased
+# v4.0.3 - 2021-10-25
 
 Changed
   * AZ-572: Revamp examples and improve CI
@@ -6,7 +6,7 @@ Changed
 Fixed
   * AZ-589: Avoid plan drift when specifying categories
 
-# v4.0.2 - unreleased
+# v4.0.2 - 2021-08-24
 
 Changed
   * AZ-532: Revamp README with latest `terraform-docs` tool
