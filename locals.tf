@@ -14,15 +14,15 @@ locals {
   )
 
   logs = {
-    for category in local.log_categories : category => {
-      enabled        = true
+    for category in try(data.azurerm_monitor_diagnostic_categories.main[0].logs, []) : category => {
+      enabled        = contains(local.log_categories, category)
       retention_days = var.retention_days
     }
   }
 
   metrics = {
-    for metric in local.metric_categories : metric => {
-      enabled        = true
+    for metric in try(data.azurerm_monitor_diagnostic_categories.main[0].metrics, []) : metric => {
+      enabled        = contains(local.metric_categories, metric)
       retention_days = var.retention_days
     }
   }
