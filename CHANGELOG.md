@@ -3,6 +3,9 @@
 Changed
   * AZ-572: Revamp examples and improve CI
 
+Fixed
+  * AZ-589: Avoid plan drift when specifying categories
+
 # v4.0.2 - unreleased
 
 Changed
