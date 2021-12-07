@@ -1,9 +1,3 @@
-variable "name" {
-  type        = string
-  default     = "default"
-  description = "The name of the diagnostic setting."
-}
-
 variable "resource_id" {
   type        = string
   description = "The ID of the resource on which activate the diagnostic settings."
