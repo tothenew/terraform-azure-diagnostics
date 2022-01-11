@@ -19,7 +19,7 @@ variable "use_caf_naming" {
 
 # Custom naming override
 variable "custom_name" {
-  description = "Name of the Diagnostic setting, generated if not set."
+  description = "Name of the diagnostic settings, generated if empty."
   type        = string
   default     = ""
 }
