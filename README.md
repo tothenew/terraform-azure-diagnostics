@@ -87,6 +87,7 @@ module "diagnostic_settings" {
 
 | Name | Version |
 |------|---------|
+| azurecaf | ~> 1.1 |
 | azurerm | >= 1.31 |
 
 ## Modules
@@ -97,6 +98,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurecaf_name.diag](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_monitor_diagnostic_setting.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
 | [azurerm_monitor_diagnostic_categories.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/monitor_diagnostic_categories) | data source |
 
@@ -104,13 +106,16 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| custom\_name | Name of the diagnostic settings, generated if empty. | `string` | `""` | no |
 | log\_analytics\_destination\_type | When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. Azure Data Factory is the only compatible resource so far. | `string` | `"AzureDiagnostics"` | no |
 | log\_categories | List of log categories. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. | `list(string)` | n/a | yes |
 | metric\_categories | List of metric categories. | `list(string)` | `null` | no |
-| name | The name of the diagnostic setting. | `string` | `"default"` | no |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | resource\_id | The ID of the resource on which activate the diagnostic settings. | `string` | n/a | yes |
 | retention\_days | The number of days to keep diagnostic logs. | `number` | `30` | no |
+| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 
 ## Outputs
 

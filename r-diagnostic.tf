@@ -7,7 +7,7 @@ data "azurerm_monitor_diagnostic_categories" "main" {
 resource "azurerm_monitor_diagnostic_setting" "main" {
   count = local.enabled ? 1 : 0
 
-  name               = var.name
+  name               = local.diag_name
   target_resource_id = var.resource_id
 
   storage_account_id             = local.storage_id
