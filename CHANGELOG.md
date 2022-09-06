@@ -1,3 +1,9 @@
+# unreleased
+
+Breaking
+  * AZ-839: Require Terraform 1.1+ and AzureRM provider `v3.21.1+`
+  * AZ-839: Use the new `logs_category_*` attributes in Azure diagnostics data resource (https://github.com/hashicorp/terraform-provider-azurerm/pull/16367)
+
 # v5.0.0 - 2022-01-12
 
 Breaking
