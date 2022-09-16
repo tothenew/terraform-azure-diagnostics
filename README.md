@@ -88,7 +88,7 @@ module "diagnostic_settings" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 1.31 |
+| azurerm | >= 3.21.1 |
 
 ## Modules
 
