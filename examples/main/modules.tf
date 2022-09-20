@@ -43,6 +43,36 @@ module "lb" {
   enable_nat         = true
 }
 
+module "eventhub" {
+  source  = "claranet/eventhub/azurerm"
+  version = "x.x.x"
+
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
+
+  resource_group_name = module.rg.resource_group_name
+
+  eventhub_namespaces_hubs = {
+    eventhub_main = {
+      sku      = "Standard"
+      capacity = 1
+      sender   = true
+      hubs = {
+        hublogs = {
+          message_retention = 7
+          sender            = true
+          manage            = true
+        }
+      }
+    }
+  }
+
+  logs_destinations_ids = []
+}
+
 module "diagnostic_settings" {
   source  = "claranet/diagnostic-settings/azurerm"
   version = "x.x.x"
@@ -51,7 +81,9 @@ module "diagnostic_settings" {
 
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    module.logs.log_analytics_workspace_id,
+    format("%s|%s", module.eventhub.namespaces_senders["eventhub_main"]["hublogs"].id, "hublogs"),
   ]
+
   log_analytics_destination_type = "Dedicated"
 }
