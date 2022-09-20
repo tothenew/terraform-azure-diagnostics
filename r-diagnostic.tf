@@ -23,7 +23,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
       enabled  = log.value.enabled
 
       retention_policy {
-        enabled = log.value.enabled && log.value.retention_days != null ? true : false
+        enabled = log.value.enabled && log.value.retention_days != null
         days    = log.value.enabled ? log.value.retention_days : 0
       }
     }
@@ -37,7 +37,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
       enabled  = metric.value.enabled
 
       retention_policy {
-        enabled = metric.value.enabled && metric.value.retention_days != null ? true : false
+        enabled = metric.value.enabled && metric.value.retention_days != null
         days    = metric.value.enabled ? metric.value.retention_days : 0
       }
     }
