@@ -1,3 +1,8 @@
+# Unreleased
+
+Updated
+  * AZ-839: Update and optimize module code
+
 # v6.0.0 - 2022-09-16
 
 Breaking
