@@ -44,8 +44,9 @@ module "lb" {
 }
 
 module "eventhub" {
-  source  = "claranet/eventhub/azurerm"
-  version = "x.x.x"
+  # source  = "claranet/eventhub/azurerm"
+  # version = "x.x.x"
+  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/eventhub.git?ref=AZ-875_rework_module"
 
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
@@ -55,18 +56,17 @@ module "eventhub" {
 
   resource_group_name = module.rg.resource_group_name
 
-  eventhub_namespaces_hubs = {
-    eventhub_main = {
-      sku      = "Standard"
-      capacity = 1
-      sender   = true
-      hubs = {
-        hublogs = {
-          message_retention = 7
-          sender            = true
-          manage            = true
-        }
-      }
+  cluster_enabled = false
+
+  namespace_parameters = {
+    sku      = "Standard"
+    capacity = 2
+  }
+
+  hubs_parameters = {
+    logs = {
+      custom_name     = "main-logs-hub"
+      partition_count = 2
     }
   }
 
@@ -82,7 +82,7 @@ module "diagnostic_settings" {
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id,
-    format("%s|%s", module.eventhub.namespaces_senders["eventhub_main"]["hublogs"].id, "hublogs"),
+    format("%s|%s", module.eventhub.namespace_send_authorization_rule.id, module.eventhub.eventhubs["logs"].name),
   ]
 
   log_analytics_destination_type = "Dedicated"
