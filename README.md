@@ -5,6 +5,14 @@ This module is based on work from [Innovation Norway](https://github.com/Innovat
 
 This Terraform enables the Diagnostic Settings on a given Azure resource.
 
+## Note for EventHub usage in destination
+
+If you want to specify an Azure EventHub to send logs and metrics to in `logs_destinations_ids`,
+you need to provide a formated string with both the EventHub Namespace authorization send ID 
+and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character.
+
+Please refer to the [example](#usage) below for a detailed implementation.
+
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
 
@@ -70,6 +78,35 @@ module "lb" {
   enable_nat         = true
 }
 
+module "eventhub" {
+  source  = "claranet/eventhub/azurerm"
+  version = "x.x.x"
+
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
+
+  resource_group_name = module.rg.resource_group_name
+
+  create_dedicated_cluster = false
+
+  namespace_parameters = {
+    sku      = "Standard"
+    capacity = 2
+  }
+
+  hubs_parameters = {
+    logs = {
+      custom_name     = "main-logs-hub"
+      partition_count = 2
+    }
+  }
+
+  logs_destinations_ids = []
+}
+
 module "diagnostic_settings" {
   source  = "claranet/diagnostic-settings/azurerm"
   version = "x.x.x"
@@ -78,8 +115,10 @@ module "diagnostic_settings" {
 
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    module.logs.log_analytics_workspace_id,
+    format("%s|%s", module.eventhub.namespace_send_authorization_rule.id, module.eventhub.eventhubs["logs"].name),
   ]
+
   log_analytics_destination_type = "Dedicated"
 }
 ```
@@ -108,9 +147,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | custom\_name | Name of the diagnostic settings, generated if empty. | `string` | `""` | no |
-| log\_analytics\_destination\_type | When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. Azure Data Factory is the only compatible resource so far. | `string` | `"AzureDiagnostics"` | no |
+| log\_analytics\_destination\_type | When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. | `string` | `"AzureDiagnostics"` | no |
 | log\_categories | List of log categories. | `list(string)` | `null` | no |
-| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. | `list(string)` | n/a | yes |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br>If you want to specify an Azure EventHub to send logs and metrics to, you need to provide a formated string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character. | `list(string)` | n/a | yes |
 | metric\_categories | List of metric categories. | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |

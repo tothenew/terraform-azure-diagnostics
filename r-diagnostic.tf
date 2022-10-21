@@ -13,7 +13,8 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
   storage_account_id             = local.storage_id
   log_analytics_workspace_id     = local.log_analytics_id
   log_analytics_destination_type = local.log_analytics_destination_type
-  eventhub_authorization_rule_id = local.eventhub_id
+  eventhub_authorization_rule_id = local.eventhub_authorization_rule_id
+  eventhub_name                  = local.eventhub_name
 
   dynamic "log" {
     for_each = local.logs

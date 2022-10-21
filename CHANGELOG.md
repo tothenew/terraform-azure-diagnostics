@@ -3,6 +3,9 @@
 Updated
   * AZ-839: Update and optimize module code
 
+Added
+  * AZ-846: Properly handle `EventHub` type in log destinations
+
 # v6.0.0 - 2022-09-16
 
 Breaking
