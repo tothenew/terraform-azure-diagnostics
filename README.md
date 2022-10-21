@@ -79,9 +79,8 @@ module "lb" {
 }
 
 module "eventhub" {
-  # source  = "claranet/eventhub/azurerm"
-  # version = "x.x.x"
-  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/eventhub.git?ref=AZ-875_rework_module"
+  source  = "claranet/eventhub/azurerm"
+  version = "x.x.x"
 
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
@@ -91,7 +90,7 @@ module "eventhub" {
 
   resource_group_name = module.rg.resource_group_name
 
-  cluster_enabled = false
+  create_dedicated_cluster = false
 
   namespace_parameters = {
     sku      = "Standard"
