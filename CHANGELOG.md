@@ -1,4 +1,4 @@
-# Unreleased
+# v6.2.1 - 2023-01-03
 
 Fixed 
   * AZ-968: Fix README
