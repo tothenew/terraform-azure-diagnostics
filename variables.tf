@@ -6,13 +6,19 @@ variable "resource_id" {
 variable "log_categories" {
   type        = list(string)
   default     = null
-  description = "List of log categories."
+  description = "List of log categories. Defaults to all available."
+}
+
+variable "excluded_log_categories" {
+  type        = list(string)
+  default     = []
+  description = "List of log categories to exclude."
 }
 
 variable "metric_categories" {
   type        = list(string)
   default     = null
-  description = "List of metric categories."
+  description = "List of metric categories. Defaults to all available."
 }
 
 variable "retention_days" {
