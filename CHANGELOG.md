@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-993: Allow to exclude some log categories
+
 # v6.2.1 - 2023-01-03
 
 Fixed 

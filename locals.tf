@@ -2,11 +2,15 @@ locals {
   logs_destinations_ids = var.logs_destinations_ids == null ? [] : var.logs_destinations_ids
   enabled               = length(local.logs_destinations_ids) > 0
 
-  log_categories = (
-    var.log_categories != null ?
-    var.log_categories :
-    try(data.azurerm_monitor_diagnostic_categories.main[0].log_category_types, [])
-  )
+  log_categories = [
+    for log in
+    (
+      var.log_categories != null ?
+      var.log_categories :
+      try(data.azurerm_monitor_diagnostic_categories.main[0].log_category_types, [])
+    ) : log if !contains(var.excluded_log_categories, log)
+  ]
+
   metric_categories = (
     var.metric_categories != null ?
     var.metric_categories :
