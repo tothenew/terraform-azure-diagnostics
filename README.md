@@ -8,7 +8,7 @@ This Terraform enables the Diagnostic Settings on a given Azure resource.
 ## Note for EventHub usage in destination
 
 If you want to specify an Azure EventHub to send logs and metrics to in `logs_destinations_ids`,
-you need to provide a formated string with both the EventHub Namespace authorization send ID 
+you need to provide a formated string with both the EventHub Namespace authorization send ID
 and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character.
 
 Please refer to the [example](#usage) below for a detailed implementation.
@@ -25,6 +25,13 @@ Please refer to the [example](#usage) below for a detailed implementation.
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | <  2.x.x       | 0.11.x            | < 2.0           |
+
+## Contributing
+
+If you want to contribute to this repository, feel free to use our [pre-commit](https://pre-commit.com/) git hook configuration
+which will help you automatically update and format some files for you by enforcing our Terraform code module best-practices.
+
+More details are available in the [CONTRIBUTING.md](./CONTRIBUTING.md#pull-request-process) file.
 
 ## Usage
 
