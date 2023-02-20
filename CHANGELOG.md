@@ -5,7 +5,7 @@ Added
 
 # v6.2.1 - 2023-01-03
 
-Fixed 
+Fixed
   * AZ-968: Fix README
 
 # v6.2.0 - 2022-11-23
@@ -56,7 +56,7 @@ Fixed
 
 Breaking
   * AZ-160: Revamp module
-  
+
 Added
   * AZ-363: Add `log_analytics_destination_type` option (only for DataFactory so far)
 
