@@ -19,7 +19,6 @@ locals {
 
   logs = {
     for category in try(data.azurerm_monitor_diagnostic_categories.main[0].log_category_types, []) : category => {
-      enabled        = contains(local.log_categories, category)
       retention_days = var.retention_days
     }
   }

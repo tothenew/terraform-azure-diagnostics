@@ -16,16 +16,15 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
   eventhub_authorization_rule_id = local.eventhub_authorization_rule_id
   eventhub_name                  = local.eventhub_name
 
-  dynamic "log" {
+  dynamic "enabled_log" {
     for_each = local.logs
 
     content {
-      category = log.key
-      enabled  = log.value.enabled
+      category = enabled_log.key
 
       retention_policy {
-        enabled = log.value.enabled && log.value.retention_days != null
-        days    = log.value.enabled ? log.value.retention_days : 0
+        enabled = enabled_log.value.retention_days != null
+        days    = enabled_log.value.retention_days
       }
     }
   }
