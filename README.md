@@ -132,10 +132,10 @@ module "diagnostic_settings" {
 
 ## Providers
 
-| Name     | Version           |
-| -------- | ----------------- |
+| Name | Version |
+|------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm  | ~> 3.22           |
+| azurerm | ~> 3.22 |
 
 ## Modules
 
@@ -143,32 +143,32 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                                                           | Type        |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [azurerm_monitor_diagnostic_setting.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting)          | resource    |
-| [azurecaf_name.diag](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name)                                                   | data source |
+| Name | Type |
+|------|------|
+| [azurerm_monitor_diagnostic_setting.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
+| [azurecaf_name.diag](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurerm_monitor_diagnostic_categories.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/monitor_diagnostic_categories) | data source |
 
 ## Inputs
 
-| Name                              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                       | Type           | Default              | Required |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------------------- | :------: |
-| custom\_name                      | Name of the diagnostic settings, generated if empty.                                                                                                                                                                                                                                                                                                                                                                                              | `string`       | `""`                 |    no    |
-| excluded\_log\_categories         | List of log categories to exclude.                                                                                                                                                                                                                                                                                                                                                                                                                | `list(string)` | `[]`                 |    no    |
-| log\_analytics\_destination\_type | When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table.                                                                                                                                                                                                                                                                                               | `string`       | `"AzureDiagnostics"` |    no    |
-| log\_categories                   | List of log categories. Defaults to all available.                                                                                                                                                                                                                                                                                                                                                                                                | `list(string)` | `null`               |    no    |
-| logs\_destinations\_ids           | List of destination resources IDs for logs diagnostic destination.<br>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br>If you want to use Azure EventHub as destination, you must provide a formatted string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a                  |   yes    |
-| metric\_categories                | List of metric categories. Defaults to all available.                                                                                                                                                                                                                                                                                                                                                                                             | `list(string)` | `null`               |    no    |
-| name\_prefix                      | Optional prefix for the generated name                                                                                                                                                                                                                                                                                                                                                                                                            | `string`       | `""`                 |    no    |
-| name\_suffix                      | Optional suffix for the generated name                                                                                                                                                                                                                                                                                                                                                                                                            | `string`       | `""`                 |    no    |
-| resource\_id                      | The ID of the resource on which activate the diagnostic settings.                                                                                                                                                                                                                                                                                                                                                                                 | `string`       | n/a                  |   yes    |
-| retention\_days                   | The number of days to keep diagnostic logs.                                                                                                                                                                                                                                                                                                                                                                                                       | `number`       | `30`                 |    no    |
-| use\_caf\_naming                  | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`.                                                                                                                                                                                                                                                                                   | `bool`         | `true`               |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| custom\_name | Name of the diagnostic settings, generated if empty. | `string` | `""` | no |
+| excluded\_log\_categories | List of log categories to exclude. | `list(string)` | `[]` | no |
+| log\_analytics\_destination\_type | When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. | `string` | `"AzureDiagnostics"` | no |
+| log\_categories | List of log categories. Defaults to all available. | `list(string)` | `null` | no |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br>If you want to use Azure EventHub as destination, you must provide a formatted string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
+| metric\_categories | List of metric categories. Defaults to all available. | `list(string)` | `null` | no |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
+| resource\_id | The ID of the resource on which activate the diagnostic settings. | `string` | n/a | yes |
+| retention\_days | The number of days to keep diagnostic logs. | `number` | `30` | no |
+| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 
 ## Outputs
 
-| Name                     | Description                    |
-| ------------------------ | ------------------------------ |
+| Name | Description |
+|------|-------------|
 | diagnostic\_settings\_id | ID of the Diagnostic Settings. |
 <!-- END_TF_DOCS -->
 ## Related documentation
