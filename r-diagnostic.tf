@@ -17,7 +17,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
   eventhub_name                  = local.eventhub_name
 
   dynamic "enabled_log" {
-    for_each = local.logs
+    for_each = ([for log in local.logs : log if log.value.enabled])
 
     content {
       category = enabled_log.key
