@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * [GH-2](https://github.com/claranet/terraform-azurerm-diagnostic-settings/pull/2/files): Replace log with `enabled_log` in `azurerm_monitor_diagnostic_setting` due to deprecation
+
 # v6.3.0 - 2023-02-07
 
 Added
