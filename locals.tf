@@ -1,6 +1,5 @@
 locals {
-  logs_destinations_ids = var.logs_destinations_ids == null ? [] : var.logs_destinations_ids
-  enabled               = length(local.logs_destinations_ids) > 0
+  enabled = length(var.logs_destinations_ids) > 0
 
   log_categories = [
     for log in
@@ -24,11 +23,11 @@ locals {
     }
   }
 
-  storage_id       = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", lower(r)), "microsoft.storage")], [null])[0]
-  log_analytics_id = coalescelist([for r in local.logs_destinations_ids : r if contains(split("/", lower(r)), "microsoft.operationalinsights")], [null])[0]
+  storage_id       = coalescelist([for r in var.logs_destinations_ids : r if contains(split("/", lower(r)), "microsoft.storage")], [null])[0]
+  log_analytics_id = coalescelist([for r in var.logs_destinations_ids : r if contains(split("/", lower(r)), "microsoft.operationalinsights")], [null])[0]
 
-  eventhub_authorization_rule_id = coalescelist([for r in local.logs_destinations_ids : split("|", r)[0] if contains(split("/", lower(r)), "microsoft.eventhub")], [null])[0]
-  eventhub_name                  = coalescelist([for r in local.logs_destinations_ids : try(split("|", r)[1], null) if contains(split("/", lower(r)), "microsoft.eventhub")], [null])[0]
+  eventhub_authorization_rule_id = coalescelist([for r in var.logs_destinations_ids : split("|", r)[0] if contains(split("/", lower(r)), "microsoft.eventhub")], [null])[0]
+  eventhub_name                  = coalescelist([for r in var.logs_destinations_ids : try(split("|", r)[1], null) if contains(split("/", lower(r)), "microsoft.eventhub")], [null])[0]
 
   log_analytics_destination_type = local.log_analytics_id != null ? var.log_analytics_destination_type : null
 }
