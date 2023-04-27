@@ -17,14 +17,14 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
   eventhub_name                  = local.eventhub_name
 
   dynamic "enabled_log" {
-    for_each = [for log in local.logs : log if log.value.enabled]
+    for_each = local.log_categories
 
     content {
       category = enabled_log.key
 
       retention_policy {
-        enabled = enabled_log.value.retention_days != null
-        days    = enabled_log.value.retention_days
+        enabled = var.retention_days != null
+        days    = var.retention_days
       }
     }
   }
