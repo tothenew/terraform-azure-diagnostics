@@ -1,4 +1,4 @@
-# Unreleased
+# v6.4.1 - 2023-04-28
 
 Fixed
   * [GH-2](https://github.com/claranet/terraform-azurerm-diagnostic-settings/pull/2/files): Fix log categories
