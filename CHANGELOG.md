@@ -1,8 +1,8 @@
-# Unreleased
+# v6.4.0 - 2023-04-28
 
 Changed
   * [GH-2](https://github.com/claranet/terraform-azurerm-diagnostic-settings/pull/2/files): Replace log with `enabled_log` in `azurerm_monitor_diagnostic_setting` due to deprecation
-  * GH-2: `logs_destinations_ids` is not nullable anymore
+  * [GH-2](https://github.com/claranet/terraform-azurerm-diagnostic-settings/pull/2/files): `logs_destinations_ids` is not nullable anymore
 
 # v6.3.0 - 2023-02-07
 
