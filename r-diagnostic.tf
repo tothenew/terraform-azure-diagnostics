@@ -20,7 +20,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
     for_each = local.log_categories
 
     content {
-      category = enabled_log.key
+      category = enabled_log.value
 
       retention_policy {
         enabled = var.retention_days != null
