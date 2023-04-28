@@ -17,13 +17,6 @@ locals {
     try(data.azurerm_monitor_diagnostic_categories.main[0].metrics, [])
   )
 
-  logs = {
-    for category in try(data.azurerm_monitor_diagnostic_categories.main[0].log_category_types, []) : category => {
-      enabled        = contains(local.log_categories, category)
-      retention_days = var.retention_days
-    }
-  }
-
   metrics = {
     for metric in try(data.azurerm_monitor_diagnostic_categories.main[0].metrics, []) : metric => {
       enabled        = contains(local.metric_categories, metric)
