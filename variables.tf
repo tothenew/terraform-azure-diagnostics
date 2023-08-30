@@ -21,13 +21,6 @@ variable "metric_categories" {
   description = "List of metric categories. Defaults to all available."
 }
 
-# tflint-ignore: terraform_unused_declarations
-variable "retention_days" {
-  type        = number
-  default     = 30
-  description = "[Deprecated] The number of days to keep diagnostic logs."
-}
-
 variable "logs_destinations_ids" {
   type        = list(string)
   nullable    = false
