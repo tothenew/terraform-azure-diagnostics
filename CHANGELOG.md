@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * AZ-1153: Ignore the `retention_days` variable as intermediate solution for quick propagation. See https://github.com/hashicorp/terraform-provider-azurerm/issues/23051
+
 # v6.4.1 - 2023-04-28
 
 Fixed
