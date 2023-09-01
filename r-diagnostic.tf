@@ -21,11 +21,6 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
 
     content {
       category = enabled_log.value
-
-      retention_policy {
-        enabled = var.retention_days != null
-        days    = var.retention_days
-      }
     }
   }
 
@@ -35,11 +30,6 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
     content {
       category = metric.key
       enabled  = metric.value.enabled
-
-      retention_policy {
-        enabled = metric.value.enabled && metric.value.retention_days != null
-        days    = metric.value.enabled ? metric.value.retention_days : 0
-      }
     }
   }
 

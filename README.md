@@ -162,7 +162,7 @@ No modules.
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | resource\_id | The ID of the resource on which activate the diagnostic settings. | `string` | n/a | yes |
-| retention\_days | The number of days to keep diagnostic logs. | `number` | `30` | no |
+| retention\_days | [Deprecated] The number of days to keep diagnostic logs. | `number` | `30` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 
 ## Outputs
