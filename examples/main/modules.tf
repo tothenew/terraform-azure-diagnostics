@@ -1,24 +1,36 @@
+locals {
+  env         = var.environment
+  name        = var.client_name
+  name_prefix = "${local.env}${local.name}"
+}
+
+resource "azurerm_resource_group" "rg" {
+  name     = "${local.name_prefix}rg"
+  location = var.location
+  tags     = var.extra_tags
+}
+
 module "logs" {
   source  = "git::https://github.com/tothenew/terraform-azure-loganalytics.git"
 
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
+  location            = var.location
+  location_short      = var.location
+  resource_group_name = azurerm_resource_group.rg.name
 }
 
 module "eventhub" {
   source  = "git::https://github.com/tothenew/terraform-azure-eventhub.git"
 
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
+  location       = var.location
+  location_short = var.location
   client_name    = var.client_name
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = azurerm_resource_group.rg.name
 
   create_dedicated_cluster = false
 
@@ -40,7 +52,7 @@ module "eventhub" {
 module "diagnostic_settings" {
   source  = "git::https://github.com/tothenew/terraform-azure-diagnostics.git"
 
-  resource_id = module.lb.lb_id
+  resource_id = var.resource_id
 
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
