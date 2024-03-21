@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 module "logs" {
-  source  = "git::https://github.com/tothenew/terraform-azure-loganalytics.git"
+  source = "git::https://github.com/tothenew/terraform-azure-loganalytics.git"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -22,7 +22,7 @@ module "logs" {
 }
 
 module "eventhub" {
-  source  = "git::https://github.com/tothenew/terraform-azure-eventhub.git"
+  source = "git::https://github.com/tothenew/terraform-azure-eventhub.git"
 
   location       = var.location
   location_short = var.location
@@ -50,7 +50,7 @@ module "eventhub" {
 }
 
 module "diagnostic_settings" {
-  source  = "git::https://github.com/tothenew/terraform-azure-diagnostics.git"
+  source = "git::https://github.com/tothenew/terraform-azure-diagnostics.git"
 
   resource_id = var.resource_id
 
